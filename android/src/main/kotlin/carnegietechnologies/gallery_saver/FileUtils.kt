@@ -14,6 +14,8 @@ import android.webkit.MimeTypeMap
 import androidx.exifinterface.media.ExifInterface
 import java.io.*
 import android.media.MediaMetadataRetriever
+import android.os.Build
+import androidx.annotation.RequiresApi
 
 /**
  * Core implementation of methods related to File manipulation
@@ -37,6 +39,7 @@ internal object FileUtils {
      * @param toDcim          - whether the file should be saved to DCIM
      * @return true if image was saved successfully
      */
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun insertImage(
         contentResolver: ContentResolver,
         path: String,
@@ -48,7 +51,7 @@ internal object FileUtils {
         val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
         var source = getBytesFromFile(file)
 
-        var directory = Environment.DIRECTORY_PICTURES
+        var directory = Environment.DIRECTORY_SCREENSHOTS
         if (toDcim) {
             directory = Environment.DIRECTORY_DCIM
         }
